@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Threads Clone
 
 #Overview
@@ -74,3 +75,4 @@ Feel free to fork the repository, create a feature branch, and submit a PR. Open
 This project is open-source under the MIT License.
 
 Built with Flutter, Passion, and a Lot of Coffee!
+
