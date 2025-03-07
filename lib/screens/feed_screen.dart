@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:threads_clone/models/thread_message.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({super.key});
@@ -17,17 +18,20 @@ class _FeedScreenState extends State<FeedScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Image.asset(
-              'assets/thread_logo.png',
-              width: 30,
+            Center(
+              child: Image.asset(
+                'assets/thread_logo.png',
+                width: 30,
+              ),
             ),
-            ThreadMessage(),
-            ThreadMessage(),
-            ThreadMessage(),
-            ThreadMessage(),
-            ThreadMessage(),
-            ThreadMessage(),
-            ThreadMessage(),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: threadMessages.length,
+                itemBuilder: (context, index) {
+                  return ThreadMessageWidget(
+                    message: threadMessages[index],
+                  );
+                })
           ],
         ),
       ),
@@ -35,10 +39,13 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 }
 
-class ThreadMessage extends StatelessWidget {
-  const ThreadMessage({
+class ThreadMessageWidget extends StatelessWidget {
+  const ThreadMessageWidget({
     super.key,
+    required this.message,
   });
+
+  final ThreadMessage message;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +54,10 @@ class ThreadMessage extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              'assets/profile.png',
-              width: 45,
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://avatars.dicebear.com/api/avataaars/${message.senderName}.png'),
+              backgroundColor: Colors.white,
             ),
             SizedBox(
               width: 8,
@@ -61,18 +69,18 @@ class ThreadMessage extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'John Doe',
+                      message.senderName,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Spacer(),
-                    Text('5 mins'),
+                    Text(_getTimeDifference(message.timeStamp)),
                     IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Hi everyone, how are you all?'),
+                    Text(message.message),
                     Row(
                       children: [
                         IconButton(
@@ -104,5 +112,20 @@ class ThreadMessage extends StatelessWidget {
         Divider()
       ],
     );
+  }
+
+  String _getTimeDifference(DateTime timestamp) {
+    final now = DateTime.now();
+    final difference = now.difference(timestamp);
+
+    if (difference.inMinutes < 1) {
+      return 'Just Now';
+    } else if (difference.inHours < 1) {
+      return '${difference.inMinutes} min';
+    } else if (difference.inDays < 1) {
+      return '${difference.inHours} hr';
+    } else {
+      return '${difference.inDays} Days';
+    }
   }
 }

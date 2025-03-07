@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:threads_clone/screens/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -20,9 +20,21 @@ class _SignupState extends State<Signup> {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text);
+              email: emailController.text.trim(),
+              password: passwordController.text.trim());
+
+      String userId = userCredential.user!.uid;
+
+      await FirebaseFirestore.instance.collection('users').doc(userId).set({
+        'name': fullNameController.text,
+        'username': userNameController.text
+      });
+      if (mounted) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+      }
     } catch (e) {
-      print('Error: $e');
+      print('Error: ${e.toString()}');
     }
   }
 
@@ -101,6 +113,7 @@ class _SignupState extends State<Signup> {
               padding: const EdgeInsets.only(top: 20.0, bottom: 20),
               child: TextFormField(
                 controller: passwordController,
+                obscureText: true,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(8),
                     hintText: ('Enter your Password'),

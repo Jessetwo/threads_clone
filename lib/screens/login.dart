@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } catch (e) {
-      print('error: $e');
+      print('error: ${e.toString()}');
       return;
     }
     if (mounted) {
