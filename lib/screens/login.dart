@@ -13,6 +13,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
 
   Future<void> login() async {
     try {
@@ -41,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
             Spacer(),
             Center(
               child: Image.asset(
-                'thread_logo.png',
+                'assets/thread_logo.png',
                 width: 80,
               ),
             ),
@@ -96,11 +97,13 @@ class _LoginPageState extends State<LoginPage> {
                 width: double.infinity,
                 height: 42,
                 child: ElevatedButton(
-                  onPressed: login,
-                  child: Text(
-                    'Login',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  onPressed: isLoading ? null : login,
+                  child: isLoading
+                      ? CircularProgressIndicator(color: Colors.grey)
+                      : Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white),
+                        ),
                   style:
                       ElevatedButton.styleFrom(backgroundColor: Colors.black),
                 )),

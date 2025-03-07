@@ -15,6 +15,7 @@ class _SignupState extends State<Signup> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
+  bool isLoading = false;
 
   Future<void> register() async {
     try {
@@ -132,11 +133,11 @@ class _SignupState extends State<Signup> {
                 width: double.infinity,
                 height: 42,
                 child: ElevatedButton(
-                  onPressed: register,
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  onPressed: isLoading ? null : register,
+                  child: isLoading
+                      ? CircularProgressIndicator(color: Colors.white)
+                      : const Text('Sign Up',
+                          style: TextStyle(color: Colors.white)),
                   style:
                       ElevatedButton.styleFrom(backgroundColor: Colors.black),
                 )),
