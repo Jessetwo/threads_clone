@@ -15,8 +15,26 @@ class _PostScreenState extends State<PostScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Row(
-            children: [TextButton(onPressed: () {}, child: Text('Cancel'))],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                    onPressed: () {},
+                    child: Text('Cancel',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold))),
+                Text(
+                  'New Thread',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                ),
+                TextButton(
+                    onPressed: () {},
+                    child: Text('Post',
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+              ],
+            ),
           )
         ],
       ),
