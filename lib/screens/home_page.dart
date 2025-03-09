@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:threads_clone/screens/favorite_screen.dart';
 import 'package:threads_clone/screens/feed_screen.dart';
 import 'package:threads_clone/screens/post_screen.dart';
@@ -21,10 +22,22 @@ class _HomePageState extends State<HomePage> {
     FavoriteScreen(),
     ProfileScreen()
   ];
+
+  PanelController panelController = PanelController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[selectedIndex],
+      body: SlidingUpPanel(
+        controller: panelController,
+        minHeight: 0,
+        maxHeight: MediaQuery.of(context).size.height * 0.8,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+        panelBuilder: (ScrollController sc) {
+          return PostScreen();
+        },
+        body: _pages[selectedIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.black,
@@ -32,9 +45,16 @@ class _HomePageState extends State<HomePage> {
           showUnselectedLabels: false,
           currentIndex: selectedIndex,
           onTap: (index) {
-            setState(() {
-              selectedIndex = index;
-            });
+            if (index == 2) {
+              panelController.isPanelOpen
+                  ? panelController.close()
+                  : panelController.open();
+            } else {
+              panelController.close();
+              setState(() {
+                selectedIndex = index;
+              });
+            }
           },
           type: BottomNavigationBarType.fixed,
           items: [

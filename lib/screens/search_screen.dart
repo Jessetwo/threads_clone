@@ -78,8 +78,12 @@ class SuggestedFollowerWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8)),
-                child:
-                    follower.isFollowing ? Text('Following') : Text('Follow'),
+                child: follower.isFollowing
+                    ? Text(
+                        'Following',
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    : Text('Follow'),
               )
             ],
           ),

@@ -11,9 +11,15 @@ class _PostScreenState extends State<PostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Post Screen'),
+        body: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Row(
+            children: [TextButton(onPressed: () {}, child: Text('Cancel'))],
+          )
+        ],
       ),
-    );
+    ));
   }
 }

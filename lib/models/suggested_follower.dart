@@ -49,7 +49,7 @@ List<SuggestedFollower> suggestedFollower = [
     id: '2',
     username: 'Allen Smith',
     profileImageUrl: '',
-    isFollowing: true,
+    isFollowing: false,
   ),
   SuggestedFollower(
     id: '3',
@@ -61,6 +61,6 @@ List<SuggestedFollower> suggestedFollower = [
     id: '4',
     username: 'Andrew Smith',
     profileImageUrl: '',
-    isFollowing: true,
+    isFollowing: false,
   ),
 ];
