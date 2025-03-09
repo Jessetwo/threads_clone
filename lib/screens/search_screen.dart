@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:threads_clone/models/suggested_follower.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -16,7 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Search',
@@ -39,7 +40,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
-            SuggestedFollowerWidget()
+            SizedBox(height: 20),
+            ...suggestedFollower.map((follower) {
+              return SuggestedFollowerWidget(follower: follower);
+            }).toList()
           ],
         ),
       ),
@@ -48,16 +52,22 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class SuggestedFollowerWidget extends StatelessWidget {
-  const SuggestedFollowerWidget({super.key});
+  const SuggestedFollowerWidget({super.key, required this.follower});
+
+  final SuggestedFollower follower;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ListTile(
-          leading: CircleAvatar(),
-          title: Text('John Doe'),
-          subtitle: Text('@john_doe'),
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(
+                'https://avatars.dicebear.com/api/avataaars/${follower.username}.png'),
+            backgroundColor: Colors.white,
+          ),
+          title: Text(follower.username),
+          subtitle: Text(follower.username.toLowerCase()),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -68,7 +78,8 @@ class SuggestedFollowerWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8)),
-                child: Text("Follow"),
+                child:
+                    follower.isFollowing ? Text('Following') : Text('Follow'),
               )
             ],
           ),
