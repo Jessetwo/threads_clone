@@ -35,6 +35,41 @@ class _PostScreenState extends State<PostScreen> {
                         style: TextStyle(fontWeight: FontWeight.bold))),
               ],
             ),
+          ),
+          Divider(
+            thickness: 1,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  foregroundImage: AssetImage('assets/profile.png'),
+                  radius: 25,
+                ),
+                SizedBox(
+                  width: 14,
+                ),
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Jesse Kanadi',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          hintText: 'Start a Thread',
+                          hintStyle: TextStyle(fontSize: 14),
+                          border: InputBorder.none),
+                      maxLines: null,
+                    )
+                  ],
+                ))
+              ],
+            ),
           )
         ],
       ),
