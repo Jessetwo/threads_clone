@@ -15,15 +15,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
-  List<Widget> _pages = [
-    FeedScreen(),
-    SearchScreen(),
-    PostScreen(),
-    FavoriteScreen(),
-    ProfileScreen()
-  ];
+  List<Widget> _pages = [];
 
   PanelController panelController = PanelController();
+
+  @override
+  void initState() {
+    _pages = [
+      FeedScreen(),
+      SearchScreen(),
+      PostScreen(panelController: panelController),
+      FavoriteScreen(),
+      ProfileScreen()
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(25), topRight: Radius.circular(25)),
         panelBuilder: (ScrollController sc) {
-          return PostScreen();
+          return PostScreen(panelController: panelController);
         },
         body: _pages[selectedIndex],
       ),

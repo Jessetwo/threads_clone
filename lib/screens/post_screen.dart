@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/src/panel.dart';
 
 class PostScreen extends StatefulWidget {
-  const PostScreen({super.key});
+  const PostScreen({super.key, required this.panelController});
+
+  final PanelController panelController;
 
   @override
   State<PostScreen> createState() => _PostScreenState();
@@ -21,7 +24,9 @@ class _PostScreenState extends State<PostScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.panelController.close();
+                    },
                     child: Text('Cancel',
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold))),
