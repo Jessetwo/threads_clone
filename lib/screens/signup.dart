@@ -134,12 +134,12 @@ class _SignupState extends State<Signup> {
                 height: 42,
                 child: ElevatedButton(
                   onPressed: isLoading ? null : register,
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.black),
                   child: isLoading
                       ? CircularProgressIndicator(color: Colors.white)
                       : const Text('Sign Up',
                           style: TextStyle(color: Colors.white)),
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.black),
                 )),
             const Divider(),
             const Spacer(),

@@ -43,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
             SizedBox(height: 20),
             ...suggestedFollower.map((follower) {
               return SuggestedFollowerWidget(follower: follower);
-            }).toList()
+            })
           ],
         ),
       ),

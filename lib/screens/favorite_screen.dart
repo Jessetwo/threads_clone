@@ -19,6 +19,23 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             'Activity',
             style: TextStyle(color: Colors.black),
           ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+            child: SizedBox(
+              height: 44,
+              child: TabBar(labelColor: Colors.white, tabs: [
+                Tab(
+                  text: 'All',
+                ),
+                Tab(
+                  text: 'Follows',
+                ),
+                Tab(
+                  text: 'Replies',
+                )
+              ]),
+            ),
+          ),
           backgroundColor: Colors.white,
           centerTitle: true,
         ),
